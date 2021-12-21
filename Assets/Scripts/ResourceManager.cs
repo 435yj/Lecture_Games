@@ -2,12 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour {
+public class ResourceManager : MonoBehaviour
+{
+    public static ResourceManager Instance { get; private set; } 
+    //싱글톤 get으로 값을 가져갈수 있지만, private이기 때문에 값을 설정할 수 없음.
+
+    //위 코드의 원래 코드
+    /*
+    private static ResourceManager instance;
+    public static ResourceManager GetInstance() {
+        return instance;
+    }
+    private static void SetInstance(ResourceManager set) {
+        instance = set;
+    }
+    */
 
     private Dictionary<ResourceTypeSO, int> resourceAmountDictionary;
     //Dictionary<1,2> 는 2의 값을 1을 키로 사용함. 1의 키를 쓰면 2의 값이 출력됨.
 
     private void Awake() {
+        Instance = this;
+
         resourceAmountDictionary = new Dictionary<ResourceTypeSO, int>();
 
         ResourceTypeListSO resourceTypeList = Resources.Load<ResourceTypeListSO>(typeof(ResourceTypeListSO).Name);
@@ -32,10 +48,13 @@ public class ResourceManager : MonoBehaviour {
     private void TestLogResourceAmountDictionary() {
         foreach(ResourceTypeSO resourceType in resourceAmountDictionary.Keys) {
             Debug.Log(resourceType.nameString + ": " + resourceAmountDictionary[resourceType]);
+            //이름과 갯수를 출력
         }
     }
 
     public void AddResource(ResourceTypeSO resourceType, int amount) {
         resourceAmountDictionary[resourceType] += amount;
+        TestLogResourceAmountDictionary();
+        //resourceAmountDictionary[resourceType]의 키값에 amount만큼 더한다.
     }
 }
