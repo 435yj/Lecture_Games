@@ -8,17 +8,21 @@ public class BuildingManager : MonoBehaviour {
     private BuildingTypeListSO buildingTypeList;
     private BuildingTypeSO buildingType; //BuildingTypeSO 타입을 buildingType로 선언
 
+    private void Awake() {
+        buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
+        //이름이 타입명과 같다면 typeof를 이용하여 불러올 수 있다. typeof(BuildingTypeListSO).Name은 BuildingTypeListSO를 불러옴
+        //buildingTypeList에 값을 넣어줌 
+
+        buildingType = buildingTypeList.list[0];
+        
+    }
+
     private void Start() {
         mainCamera = Camera.main; //Camera.main을 넣는 것이 효율이 좋음
 
         //Resources.Load<BuildingTypeListSO>("BuildlingTypsList");
         //BuidlingTypeListSO 타입의 BuildingTypeList라는 이름을 가진 객체 불러오기
 
-        buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
-        //이름이 타입명과 같다면 typeof를 이용하여 불러올 수 있다. typeof(BuildingTypeListSO).Name은 BuildingTypeListSO를 불러옴
-        //buildingTypeList에 값을 넣어줌 
-
-        buildingType = buildingTypeList.list[0];
     }
 
     private void Update() {

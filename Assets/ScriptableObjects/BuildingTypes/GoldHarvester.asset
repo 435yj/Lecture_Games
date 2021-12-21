@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7073e6b073412744b8812b8ff2fc682, type: 3}
-  m_Name: BuildingTypeListSO
+  m_Script: {fileID: 11500000, guid: aea5005967ba29244b59cf4c50259463, type: 3}
+  m_Name: GoldHarvester
   m_EditorClassIdentifier: 
-  buildingTypeList:
-  - {fileID: 11400000, guid: 70b8e1c9d1729af4a9f5ca7b473acdfa, type: 2}
-  - {fileID: 11400000, guid: 464b9b5fb5063f7479ededcdcf649106, type: 2}
+  nameString: Gold Harvester
+  prefab: {fileID: 1452321714570201410, guid: ee0d0809448e9a54487d75410b5894ad, type: 3}
