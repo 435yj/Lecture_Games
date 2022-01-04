@@ -43,7 +43,6 @@ public class ResourceManager : MonoBehaviour
             //resourcTypeList의 목록만큼 foreach를 돌리며 ResourceTypeSO 타입의 resourcType를
             //Dictionary를 사용하여 키값을 모두 0으로 초기화.
         }
-        TestLogResourceAmountDictionary();
     }
 
     private void Update()
@@ -53,7 +52,6 @@ public class ResourceManager : MonoBehaviour
             ResourceTypeListSO resourceTypeListSO = Resources.Load<ResourceTypeListSO>(typeof(ResourceTypeListSO).Name);
             AddResource(resourceTypeListSO.list[0], 2);
             //AddREsource 함수에 list의 값에 2를 더한다
-            TestLogResourceAmountDictionary();
         }
     }
 
@@ -80,7 +78,6 @@ public class ResourceManager : MonoBehaviour
         //this는 이 오브젝트가 보낸다는 뜻, EventArgs.Empty는 Event파라미터로 보낼 것이 없을 때
         //null로 보낼 시 e가 받았고 e로 무언가를 시도할 때 발생하는 잠재적인 Null 참조 오류를 피하기 위함.
 
-        TestLogResourceAmountDictionary();
         //resourceAmountDictionary[resourceType]의 키값에 amount만큼 더한다.
     }
 
