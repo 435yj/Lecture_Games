@@ -7,6 +7,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
 {
 
     [SerializeField] private Sprite arrowSprite;
+    [SerializeField] private List<BuildingTypeSO> ignoreBuildingTypeList;
 
     private Dictionary<BuildingTypeSO, Transform> btnTransformDictionary;
 
@@ -47,9 +48,11 @@ public class BuildingTypeSelectUI : MonoBehaviour
 
         foreach (BuildingTypeSO buildingType in buildingTypeList.list)
         {
+            if (ignoreBuildingTypeList.Contains(buildingType)) continue;
+            //ignoreBuildingTypeList에 속해있는 buildingType과 같다면 continue로 foreach넘기기
             Transform btnTransform = Instantiate(btnTemplate, transform);
             btnTransform.gameObject.SetActive(true);
-
+             
             offsetAmount = 130f;
             btnTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
 

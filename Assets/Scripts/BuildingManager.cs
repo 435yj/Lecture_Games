@@ -56,7 +56,7 @@ public class BuildingManager : MonoBehaviour
         //EventSystem.current.IsPointerOverGameObject() = 포인터가 EventSystem의 위에 있는지 확인
         {
             //Instantiate(transform , vector3, quaternion)
-            if (activeBuildingType != null && CanSpawnBuilding(buildingTypeList.list[0], UtilsClass.GetMouseWorldPosition()))
+            if (activeBuildingType != null && CanSpawnBuilding(activeBuildingType, UtilsClass.GetMouseWorldPosition()))
             //activeBuildingType이 널이 아니면 실행
             {
                 Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
@@ -92,12 +92,46 @@ public class BuildingManager : MonoBehaviour
         //Box모양 position을 중심으로 boxCollider2D의 size만큼 회전은 0
         //OverlapBoxAll(위치(Vector2), 사이즈(Vector2), 각도(float))
         //겹쳐지면 collider2DArray의 배열에 넣어짐
-        foreach (Collider2D collider2D in collider2DArray)
-        {
 
+        bool isAreaClear = collider2DArray.Length == 0;
+        //collider2DArray.Length와 0이랑 비교하여 0이라면 참을 반환 아니면 거짓을 반환   
+        if (!isAreaClear) return false;
+
+        collider2DArray = Physics2D.OverlapCircleAll(position, buildingType.minConstructionRadius);
+        //원에 겹치는거 배열에 집어넣음
+
+        foreach (Collider2D collider2D in collider2DArray)
+        //collider2DArray만큼 반복
+        {
+            BuildingTypeHolder buildingTypeHolder = collider2D.GetComponent<BuildingTypeHolder>();
+
+            if (buildingTypeHolder != null)
+            //buildingTypeHolder가 null이 아니면 
+            {
+                if (buildingTypeHolder.buildingType == buildingType)
+                //buildingTypeHolder.buildingType과 buildikngType이 같으면 false를 return하여 설치 불가
+                {
+                    return false;
+                }
+            }
         }
 
-        return collider2DArray.Length == 0;
-        //collider2DArray.Length와 0이랑 비교하여 0이라면 참을 반환 아니면 거짓을 반환   
+        float maxConstructionRadius = 25f;
+        collider2DArray = Physics2D.OverlapCircleAll(position, maxConstructionRadius);
+        //원에 겹치는거 배열에 집어넣음
+
+        foreach (Collider2D collider2D in collider2DArray)
+        //collider2DArray만큼 반복
+        {
+            BuildingTypeHolder buildingTypeHolder = collider2D.GetComponent<BuildingTypeHolder>();
+
+            if (buildingTypeHolder != null)
+            //buildingTypeHolder가 null이 아니면 
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
