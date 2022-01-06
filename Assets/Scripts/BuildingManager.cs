@@ -56,23 +56,23 @@ public class BuildingManager : MonoBehaviour
         //EventSystem.current.IsPointerOverGameObject() = 포인터가 EventSystem의 위에 있는지 확인
         {
             //Instantiate(transform , vector3, quaternion)
-            if(activeBuildingType != null)
+            if (activeBuildingType != null && CanSpawnBuilding(buildingTypeList.list[0], UtilsClass.GetMouseWorldPosition()))
             //activeBuildingType이 널이 아니면 실행
-            { 
-            Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
-            //buildingType.prefab은 scriptableObject로 생성한 BuildingTypeSo의 오브젝트 중 선택된 오브젝트의 prefab
+            {
+                Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
+                //buildingType.prefab은 scriptableObject로 생성한 BuildingTypeSo의 오브젝트 중 선택된 오브젝트의 prefab
             }
         }
     }
 
-    
+
 
     public void SetActiveBuildingType(BuildingTypeSO buildingType)
     {
         activeBuildingType = buildingType;
         //activeBuildingType에 buildingType을 넣음
         //arrowBtn이면 null을 받음
-        OnActiveBuildingTypeChanged?.Invoke(this, new OnActiveBuildingTypeChangedEventArgs { activeBuildingType = activeBuildingType});
+        OnActiveBuildingTypeChanged?.Invoke(this, new OnActiveBuildingTypeChangedEventArgs { activeBuildingType = activeBuildingType });
         //null이 아니면 됨
     }
 
@@ -83,4 +83,21 @@ public class BuildingManager : MonoBehaviour
 
     }
 
+
+    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position)
+    {
+        BoxCollider2D boxCollider2D = buildingType.prefab.GetComponent<BoxCollider2D>();
+
+        Collider2D[] collider2DArray = Physics2D.OverlapBoxAll(position + (Vector3)boxCollider2D.offset, boxCollider2D.size, 0);
+        //Box모양 position을 중심으로 boxCollider2D의 size만큼 회전은 0
+        //OverlapBoxAll(위치(Vector2), 사이즈(Vector2), 각도(float))
+        //겹쳐지면 collider2DArray의 배열에 넣어짐
+        foreach (Collider2D collider2D in collider2DArray)
+        {
+
+        }
+
+        return collider2DArray.Length == 0;
+        //collider2DArray.Length와 0이랑 비교하여 0이라면 참을 반환 아니면 거짓을 반환   
+    }
 }
