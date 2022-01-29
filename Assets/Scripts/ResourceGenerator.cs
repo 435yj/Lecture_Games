@@ -4,24 +4,10 @@ using UnityEngine;
 
 public class ResourceGenerator : MonoBehaviour
 {
-
-    private ResourceGeneratorData resourceGeneratorData;
-
-
-    private float timer;
-    private float timerMax;
-
-    private void Awake()
+    public static int GetNearbyResourceAmount(ResourceGeneratorData resourceGeneratorData,Vector3 position)
     {
-        resourceGeneratorData = GetComponent<BuildingTypeHolder>().buildingType.resourceGeneratorData;
-        //buildingType은 buildingTypeHolder 스크립트의 buildingType.
-        timerMax = resourceGeneratorData.timerMax;
-        //buildingType의 resourceGeneratorData의 timerMax값을 timerMax에 넣는다.
-    }
 
-    private void Start()
-    {
-        Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(transform.position, resourceGeneratorData.resourceDatectionRadius);
+        Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(position, resourceGeneratorData.resourceDatectionRadius);
         //Collider2D형태의 배열의 collider2DArray에 Physics2D.OverlapCircleAll에서 받은 값을 넣음
         //Physics2D.OverlapCircleAll(오브젝트의 위치(원의 중심), 반지름) 오브젝트의 위치를 중심으로 원을 만들고
         //그 원에 충돌하는 오브젝트를 배열의 형태로 보관
@@ -44,6 +30,26 @@ public class ResourceGenerator : MonoBehaviour
 
         nearbyResourceAmount = Mathf.Clamp(nearbyResourceAmount, 0, resourceGeneratorData.maxResourceAmount);
 
+        return nearbyResourceAmount;
+    }
+
+    private ResourceGeneratorData resourceGeneratorData;
+
+
+    private float timer;
+    private float timerMax;
+
+    private void Awake()
+    {
+        resourceGeneratorData = GetComponent<BuildingTypeHolder>().buildingType.resourceGeneratorData;
+        //buildingType은 buildingTypeHolder 스크립트의 buildingType.
+        timerMax = resourceGeneratorData.timerMax;
+        //buildingType의 resourceGeneratorData의 timerMax값을 timerMax에 넣는다.
+    }
+
+    private void Start()
+    {
+        int nearbyResourceAmount = GetNearbyResourceAmount(resourceGeneratorData, transform.position);
 
         if (nearbyResourceAmount == 0)
         {
@@ -71,5 +77,20 @@ public class ResourceGenerator : MonoBehaviour
             ResourceManager.Instance.AddResource(resourceGeneratorData.resourceType, 1);
 
         }
+    }
+
+    public ResourceGeneratorData GetResourceGeneratorData()
+    {
+        return resourceGeneratorData;
+    }
+
+    public float GetTimerNormalized()
+    {
+        return timer / timerMax;
+    }
+
+    public float GetAmountGeneratedPerSecond()
+    {
+        return 1 / timerMax;
     }
 }
