@@ -88,4 +88,31 @@ public class ResourceManager : MonoBehaviour
         //int형으로 함수를 선언했기 때문에 반환을 해야한다.
         //resourceType의 키 값을 resourceAmountDictionary를 return으로 반환한다.
     }
+
+    public bool CanAfford(ResourceAmount[] resourceAmountArray)
+    {
+
+        foreach (ResourceAmount resourceAmount in resourceAmountArray)
+        {
+            if (GetResourceAmount(resourceAmount.resourceType) >= resourceAmount.amount)
+            {
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void SpendResources(ResourceAmount[] resourceAmountArray)
+    {
+
+        foreach (ResourceAmount resourceAmount in resourceAmountArray)
+        {
+            resourceAmountDictionary[resourceAmount.resourceType] -= resourceAmount.amount;
+        }
+    }
 }
