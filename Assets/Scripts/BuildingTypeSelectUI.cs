@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,16 @@ public class BuildingTypeSelectUI : MonoBehaviour
             //BuildingManager의 SetActiveBuildingType 함수를 실행하며 매개변수로 buildingType을 보냄
         });
 
+        MouseEnterExitEvents mouseEnterExitEvents = arrowBtn.GetComponent<MouseEnterExitEvents>();
+        mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs e) =>
+        {
+            TooltipUI.Instance.Show("Arrow");
+        };
+        mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs e) =>
+        {
+            TooltipUI.Instance.Hide();
+        };
+
         index++;
         //선택되지 않은 것을 만들기 위하여 arrow를 만듬
 
@@ -52,7 +63,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
             //ignoreBuildingTypeList에 속해있는 buildingType과 같다면 continue로 foreach넘기기
             Transform btnTransform = Instantiate(btnTemplate, transform);
             btnTransform.gameObject.SetActive(true);
-             
+
             offsetAmount = 130f;
             btnTransform.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsetAmount * index, 0);
 
@@ -64,6 +75,16 @@ public class BuildingTypeSelectUI : MonoBehaviour
                 BuildingManager.Instance.SetActiveBuildingType(buildingType);
                 //BuildingManager의 SetActiveBuildingType 함수를 실행하며 매개변수로 buildingType을 보냄
             });
+
+            mouseEnterExitEvents = btnTransform.GetComponent<MouseEnterExitEvents>();
+            mouseEnterExitEvents.OnMouseEnter += (object sender, EventArgs e) =>
+            {
+                TooltipUI.Instance.Show(buildingType.nameString + "\n" + buildingType.GetConstructionResourceCostString());
+            };
+            mouseEnterExitEvents.OnMouseExit += (object sender, EventArgs e) =>
+            {
+                TooltipUI.Instance.Hide();
+            };
 
             btnTransformDictionary[buildingType] = btnTransform;
 

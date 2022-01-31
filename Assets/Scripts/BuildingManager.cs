@@ -56,17 +56,28 @@ public class BuildingManager : MonoBehaviour
         //EventSystem.current.IsPointerOverGameObject() = 포인터가 EventSystem의 위에 있는지 확인
         {
             //Instantiate(transform , vector3, quaternion)
-            if (activeBuildingType != null && CanSpawnBuilding(activeBuildingType, UtilsClass.GetMouseWorldPosition()))
+            if (activeBuildingType != null)
             //activeBuildingType이 널이 아니면 실행
             {
-
-                if (ResourceManager.Instance.CanAfford(activeBuildingType.constructionResourceCostArray))
+                if (CanSpawnBuilding(activeBuildingType, UtilsClass.GetMouseWorldPosition(), out string erroMessage))
                 {
-                    ResourceManager.Instance.SpendResources(activeBuildingType.constructionResourceCostArray);
-                    Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
-                    //buildingType.prefab은 scriptableObject로 생성한 BuildingTypeSo의 오브젝트 중 선택된 오브젝트의 prefab
+                    if (ResourceManager.Instance.CanAfford(activeBuildingType.constructionResourceCostArray))
+                    {
+                        ResourceManager.Instance.SpendResources(activeBuildingType.constructionResourceCostArray);
+                        Instantiate(activeBuildingType.prefab, UtilsClass.GetMouseWorldPosition(), Quaternion.identity);
+                        //buildingType.prefab은 scriptableObject로 생성한 BuildingTypeSo의 오브젝트 중 선택된 오브젝트의 prefab
+                    }
+                    else
+                    {
+                        TooltipUI.Instance.Show("Cannot afford " + activeBuildingType.GetConstructionResourceCostString(), new TooltipUI.TooltipTimer { timer = 2f });
+                    }
+                }
+                else
+                {
+                    TooltipUI.Instance.Show(erroMessage, new TooltipUI.TooltipTimer { timer = 2f });
                 }
             }
+
         }
     }
 
@@ -89,7 +100,10 @@ public class BuildingManager : MonoBehaviour
     }
 
 
-    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position)
+    private bool CanSpawnBuilding(BuildingTypeSO buildingType, Vector3 position, out string errorMessage)
+    //https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/out-parameter-modifier
+    //out 매개변수자 이걸 사용하면 함수 밖의 변수들의 값을 정할 수 있음
+
     {
         BoxCollider2D boxCollider2D = buildingType.prefab.GetComponent<BoxCollider2D>();
 
@@ -100,8 +114,11 @@ public class BuildingManager : MonoBehaviour
 
         bool isAreaClear = collider2DArray.Length == 0;
         //collider2DArray.Length와 0이랑 비교하여 0이라면 참을 반환 아니면 거짓을 반환   
-        if (!isAreaClear) return false;
-
+        if (!isAreaClear)
+        {
+            errorMessage = "Area is not Clear!";
+            return false;
+        }
         collider2DArray = Physics2D.OverlapCircleAll(position, buildingType.minConstructionRadius);
         //원에 겹치는거 배열에 집어넣음
 
@@ -116,6 +133,7 @@ public class BuildingManager : MonoBehaviour
                 if (buildingTypeHolder.buildingType == buildingType)
                 //buildingTypeHolder.buildingType과 buildikngType이 같으면 false를 return하여 설치 불가
                 {
+                    errorMessage = "Too close to another building of the same type!";
                     return false;
                 }
             }
@@ -133,10 +151,12 @@ public class BuildingManager : MonoBehaviour
             if (buildingTypeHolder != null)
             //buildingTypeHolder가 null이 아니면 
             {
+                errorMessage = "";
                 return true;
             }
         }
 
+        errorMessage = "Too far from any oother buildings";
         return false;
     }
 }
