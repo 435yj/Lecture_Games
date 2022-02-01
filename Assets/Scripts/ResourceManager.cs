@@ -45,16 +45,7 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            ResourceTypeListSO resourceTypeListSO = Resources.Load<ResourceTypeListSO>(typeof(ResourceTypeListSO).Name);
-            AddResource(resourceTypeListSO.list[0], 2);
-            //AddREsource 함수에 list의 값에 2를 더한다
-        }
-    }
-
+    
     private void TestLogResourceAmountDictionary()
     {
         foreach (ResourceTypeSO resourceType in resourceAmountDictionary.Keys)
