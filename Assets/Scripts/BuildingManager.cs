@@ -28,6 +28,10 @@ public class BuildingManager : MonoBehaviour
     //위의 형태로 클래스를 만들고 넣으면 EventArgs로 보내는 부분을 e로 받고 e를 통해 보내온 코드를 수정할 수 있다.
 
 
+
+    [SerializeField] private Building hqBuilding;
+
+
     private Camera mainCamera; //카메라 선언 why 카메라를 하나만 쓰지 않을 수도 있다
     private BuildingTypeListSO buildingTypeList;
     private BuildingTypeSO activeBuildingType; //BuildingTypeSO 타입을 buildingType로 선언
@@ -158,5 +162,10 @@ public class BuildingManager : MonoBehaviour
 
         errorMessage = "Too far from any oother buildings";
         return false;
+    }
+
+    public Building GetHQBuilding()
+    {
+        return hqBuilding;
     }
 }
