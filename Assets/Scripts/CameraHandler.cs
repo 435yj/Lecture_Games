@@ -42,7 +42,7 @@ public class CameraHandler : MonoBehaviour
         //.normalized는 벡터를 정규화시킴
         //정규화란 대각선 이동이 불가하고 이동 속도를 확인
 
-        float moveSpeed = 10f;
+        float moveSpeed = 30f;
         //이동 속도를 정하기 위하여
 
         transform.position += moveDir * moveSpeed * Time.deltaTime;
