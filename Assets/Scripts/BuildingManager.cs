@@ -47,11 +47,17 @@ public class BuildingManager : MonoBehaviour
 
     private void Start()
     {
-        //mainCamera = Camera.main; //Camera.main을 넣는 것이 효율이 좋음
+        mainCamera = Camera.main; //Camera.main을 넣는 것이 효율이 좋음
         //UtilsClass로 옮기면서 필요가 없어짐
         //Resources.Load<BuildingTypeListSO>("BuildlingTypsList");
         //BuidlingTypeListSO 타입의 BuildingTypeList라는 이름을 가진 객체 불러오기
 
+        hqBuilding.GetComponent<HealthSystem>().OnDied += BuildingManager_OnDied;
+    }
+
+    private void BuildingManager_OnDied(object sender, EventArgs e)
+    {
+        GameOverUI.Instance.Show();
     }
 
     private void Update()
