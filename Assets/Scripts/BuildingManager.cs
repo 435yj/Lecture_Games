@@ -57,6 +57,7 @@ public class BuildingManager : MonoBehaviour
 
     private void BuildingManager_OnDied(object sender, EventArgs e)
     {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.GameOver);
         GameOverUI.Instance.Show();
     }
 
@@ -78,6 +79,7 @@ public class BuildingManager : MonoBehaviour
                         //buildingType.prefab은 scriptableObject로 생성한 BuildingTypeSo의 오브젝트 중 선택된 오브젝트의 prefab
 
                         BuildingConstruction.Create(UtilsClass.GetMouseWorldPosition(), activeBuildingType);
+                        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingPlaced);
                     }
                     else
                     {
