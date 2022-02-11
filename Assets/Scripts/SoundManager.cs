@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource audioSource;
     private Dictionary<Sound, AudioClip> soundAuddioClipDictionary;
-
+    private float volume = .5f;
 
     private void Awake()
     {
@@ -34,7 +34,22 @@ public class SoundManager : MonoBehaviour
     }
     public void PlaySound(Sound sound)
     {
-        audioSource.PlayOneShot(soundAuddioClipDictionary[sound]);
+        audioSource.PlayOneShot(soundAuddioClipDictionary[sound], volume);
     }
-
+    public void InceraseVolume()
+    {
+        volume += .1f;
+        volume = Mathf.Clamp01(volume);
+        //https://docs.unity3d.com/kr/530/ScriptReference/Mathf.Clamp01.html
+        //Mathf.Clamp01() 0이하면 0으로 1이상이면 1로
+    }
+    public void DecreaseVolume()
+    {
+        volume -= .1f;
+        volume = Mathf.Clamp01(volume);
+    }
+    public float GetVolume()
+    {
+        return volume;
+    }
 }
