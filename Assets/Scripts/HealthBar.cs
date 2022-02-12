@@ -9,6 +9,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private HealthSystem healthSystem;
 
     private Transform barTransform;
+    private Transform separatorContainer;
     private void Awake()
     {
         barTransform = transform.Find("bar");
@@ -17,10 +18,20 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        separatorContainer = transform.Find("separatorContainer");
+        ConstructHealthBarSeparators();
+
         healthSystem.OnDamaged += HealthSystem_OnDamaged;
         healthSystem.OnHealed += HealthSystem_OnHealed;
+        healthSystem.OnHealthAmountMaxChanged += HealthSystem_OnHealthAmountMaxChanged;
+
         UpdateBar();
         UpdateHealthBarVisible();
+    }
+
+    private void HealthSystem_OnHealthAmountMaxChanged(object sender, EventArgs e)
+    {
+        ConstructHealthBarSeparators();
     }
 
     private void HealthSystem_OnHealed(object sender, EventArgs e)
@@ -33,6 +44,32 @@ public class HealthBar : MonoBehaviour
     {
         UpdateBar();
         UpdateHealthBarVisible();
+    }
+
+    private void ConstructHealthBarSeparators()
+    {
+        Transform separatorTemplate = separatorContainer.Find("separatorTemplate");
+        separatorTemplate.gameObject.SetActive(false);
+
+        foreach(Transform separatorTransform in separatorContainer)
+        {
+            if (separatorTransform == separatorTemplate) continue;
+            Destroy(separatorTransform.gameObject);
+        }
+
+
+        int healthAmountPerSeparator = 10;
+        float barSize = 3f;
+        float barOneHealthAmountSize = barSize / healthSystem.GetHealthAmountMax();
+
+        int healthSeparatorCount = Mathf.FloorToInt(healthSystem.GetHealthAmountMax() / healthAmountPerSeparator);
+
+        for (int i = 0; i < healthSeparatorCount; i++)
+        {
+            Transform separatorTransform = Instantiate(separatorTemplate, separatorContainer);
+            separatorTransform.gameObject.SetActive(true);
+            separatorTransform.localPosition = new Vector3(barOneHealthAmountSize * i * healthAmountPerSeparator, 0, 0);
+        }
     }
 
     private void UpdateBar()
@@ -49,6 +86,8 @@ public class HealthBar : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
+        gameObject.SetActive(true);
+
     }
 
 }
