@@ -5,12 +5,18 @@ using Cinemachine;
 
 public class CameraHandler : MonoBehaviour
 {
+    public static CameraHandler Instance {get; private set;}
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
     private float orthographicSize;
     private float targetOrthographicSize;
+    private bool edgeScrolling;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         orthographicSize = cinemachineVirtualCamera.m_Lens.OrthographicSize;
@@ -34,6 +40,28 @@ public class CameraHandler : MonoBehaviour
         //GetAxisRaw -1, 0, 1이므로 키보드를 눌렀을 때 즉시 반응해야 할 때 사용
         //Horizontal 및 Vertical 은 유니티에서 정해준 키보드의 키들의 집합임
         //변경 가능
+
+        float edgeScrollingSize = 30;
+        if (edgeScrolling)
+        {
+            if (Input.mousePosition.x > Screen.width - edgeScrollingSize)
+            {
+                x = 1f;
+            }
+            if (Input.mousePosition.x < edgeScrollingSize)
+            {
+                x = -1f;
+            }
+            if (Input.mousePosition.y > Screen.height - edgeScrollingSize)
+            {
+                y = 1f;
+            }
+            if (Input.mousePosition.y < edgeScrollingSize)
+            {
+                y = -1f;
+            }
+        }
+
 
         //Vector2 moveDir = new Vector2(x, y).normalized;
         Vector3 moveDir = new Vector3(x, y).normalized;
@@ -80,5 +108,13 @@ public class CameraHandler : MonoBehaviour
         //위에서 마우스 휠로 값을 더해주는 orthographicSize를 거리에 대입한다.
     }
 
+    public void SetEdgeScrolling(bool edgeScrolling)
+    {
+        this.edgeScrolling = edgeScrolling;
+    }
 
+    public bool GetEdgeScrolling()
+    {
+        return edgeScrolling;
+    }
 }
