@@ -25,9 +25,10 @@ public class SoundManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
+        volume = PlayerPrefs.GetFloat("soundVolume", .5f);
         soundAuddioClipDictionary = new Dictionary<Sound, AudioClip>();
 
-        foreach(Sound sound in System.Enum.GetValues(typeof(Sound)))
+        foreach (Sound sound in System.Enum.GetValues(typeof(Sound)))
         {
             soundAuddioClipDictionary[sound] = Resources.Load<AudioClip>(sound.ToString());
         }
@@ -42,11 +43,13 @@ public class SoundManager : MonoBehaviour
         volume = Mathf.Clamp01(volume);
         //https://docs.unity3d.com/kr/530/ScriptReference/Mathf.Clamp01.html
         //Mathf.Clamp01() 0이하면 0으로 1이상이면 1로
+        PlayerPrefs.SetFloat("soundVolume", volume);
     }
     public void DecreaseVolume()
     {
         volume -= .1f;
         volume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("soundVolume", volume);
     }
     public float GetVolume()
     {

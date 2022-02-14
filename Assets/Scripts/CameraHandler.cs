@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class CameraHandler : MonoBehaviour
 {
-    public static CameraHandler Instance {get; private set;}
+    public static CameraHandler Instance { get; private set; }
 
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
@@ -16,6 +16,8 @@ public class CameraHandler : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        edgeScrolling = PlayerPrefs.GetInt("edgeScrolling", 1) == 1;
     }
     private void Start()
     {
@@ -111,6 +113,7 @@ public class CameraHandler : MonoBehaviour
     public void SetEdgeScrolling(bool edgeScrolling)
     {
         this.edgeScrolling = edgeScrolling;
+        PlayerPrefs.SetInt("edgeScrolling", edgeScrolling ? 1 : 0);
     }
 
     public bool GetEdgeScrolling()
