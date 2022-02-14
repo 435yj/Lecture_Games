@@ -66,7 +66,7 @@ public class EnemyWaveManager : MonoBehaviour
                             state = State.WaitingToSpawnNextWave;
                             spawnPosition = spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
                             nextWaveSpawnPositionTransform.position = spawnPosition;
-                            nextWaveSpawnTimer = 10f;
+                            nextWaveSpawnTimer = 15f;
                         }
                     }
                 }
@@ -78,7 +78,7 @@ public class EnemyWaveManager : MonoBehaviour
 
         nextWaveSpawnTimer = 10f;
 
-        remainingEnemySpawnAmount = 5 + 3 * waveNumber;
+        remainingEnemySpawnAmount = 3 + 2 * waveNumber;
 
         state = State.SpawningWave;
 

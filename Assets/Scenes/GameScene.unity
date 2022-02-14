@@ -3077,8 +3077,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 358285431}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.57041454, y: 1.7816341, z: 7.3440776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1419541864}
@@ -3098,11 +3098,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingResourceAmountList:
   - resourceType: {fileID: 11400000, guid: 74dfa3aa6a60e894e9e53b61c81749df, type: 2}
-    amount: 100
+    amount: 10
   - resourceType: {fileID: 11400000, guid: 9e13d9bfae1a93949a5041df7c7a24bc, type: 2}
-    amount: 100
+    amount: 0
   - resourceType: {fileID: 11400000, guid: 7bf994b0d2aa05f458aef22dbc0a488a, type: 2}
-    amount: 100
+    amount: 0
 --- !u!1 &374298209
 GameObject:
   m_ObjectHideFlags: 0
