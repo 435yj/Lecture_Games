@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D theRB;
 
-
+    public Transform gunArm;
 
     private void Update()
     {
@@ -20,6 +20,15 @@ public class PlayerController : MonoBehaviour
 
         theRB.velocity = moveInput * moveSpeed;
 
+
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
+
+        //rotate gun arm
+        Vector2 offset = new Vector2(mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
+        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
+
+        gunArm.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
 

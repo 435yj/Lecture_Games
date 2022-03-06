@@ -420,7 +420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  theRB: {fileID: 0}
+  theRB: {fileID: 1364816389}
+  gunArm: {fileID: 1062165702}
 --- !u!58 &1364816388
 CircleCollider2D:
   m_ObjectHideFlags: 0
