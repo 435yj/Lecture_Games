@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7.5
   theRb: {fileID: 6075646927705691925}
+  impactEffect: {fileID: 3134356481975005435, guid: edd1647368ab2fa4c83d80404dec9262, type: 3}
 --- !u!61 &6075646927705691924
 BoxCollider2D:
   m_ObjectHideFlags: 0
