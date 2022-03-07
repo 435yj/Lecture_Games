@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletToFire;
     public Transform firePoint;
 
+    public float timeBetweenShots;
+    private float shotCounter;
+
     private void Start()
     {
         theCam = Camera.main;
@@ -59,9 +62,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
+            shotCounter = timeBetweenShots;
         }
 
+        if (Input.GetMouseButton(0))
+        {
+            shotCounter -= Time.deltaTime;
 
+            if (shotCounter <= 0)
+            {
+                Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
+
+                shotCounter = timeBetweenShots;
+            }
+        }
 
 
 
