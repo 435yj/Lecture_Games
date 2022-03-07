@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
+    public GameObject bulletToFire;
+    public Transform firePoint;
+
     private void Start()
     {
         theCam = Camera.main;
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
         Vector3 screenPoint = theCam.WorldToScreenPoint(transform.localPosition);
 
-        if(mousePos.x < screenPoint.x)
+        if (mousePos.x < screenPoint.x)
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
             gunArm.localScale = new Vector3(-1f, -1f, 1f);
@@ -50,10 +53,19 @@ public class PlayerController : MonoBehaviour
         //rotate gun arm
         Vector2 offset = new Vector2(mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
         float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-
         gunArm.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        if(moveInput != Vector2.zero)
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
+        }
+
+
+
+
+
+        if (moveInput != Vector2.zero)
         {
             anim.SetBool("isMoving", true);
         }
