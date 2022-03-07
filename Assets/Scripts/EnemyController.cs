@@ -10,6 +10,9 @@ public class EnemyController : MonoBehaviour
     public float rangeToChasePlayer;
     private Vector3 moveDirection;
 
+    public Animator anim;
+
+
 
     private void Update()
     {
@@ -25,7 +28,19 @@ public class EnemyController : MonoBehaviour
         moveDirection.Normalize();
 
         therRB.velocity = moveDirection * moveSpeed;
+
+
+        if(moveDirection != Vector3.zero)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
+
     }
+
 
 
 
