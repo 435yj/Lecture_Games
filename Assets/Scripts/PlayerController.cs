@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     private Camera theCam;
 
+    public Animator anim;
+
     private void Start()
     {
         theCam = Camera.main;
@@ -48,6 +50,15 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
 
         gunArm.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        if(moveInput != Vector2.zero)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+        {
+            anim.SetBool("isMoving", false);
+        }
     }
 
 

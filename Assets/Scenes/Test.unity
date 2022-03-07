@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 1364816387}
   - component: {fileID: 1364816388}
   - component: {fileID: 1364816389}
+  - component: {fileID: 1364816390}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -422,6 +423,7 @@ MonoBehaviour:
   moveSpeed: 5
   theRB: {fileID: 1364816389}
   gunArm: {fileID: 1062165702}
+  anim: {fileID: 1364816390}
 --- !u!58 &1364816388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -459,6 +461,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &1364816390
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364816385}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b0f43cf59931b2499e5b4da987ea5ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1545295440
 GameObject:
   m_ObjectHideFlags: 0
