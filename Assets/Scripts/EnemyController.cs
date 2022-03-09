@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
 
     public int health = 150;
 
+    public GameObject[] deathSplatters;
+
     private void Update()
     {
         if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
@@ -49,6 +51,12 @@ public class EnemyController : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+
+            int selectedSplatter = Random.Range(0, deathSplatters.Length);
+
+            int rotatation = Random.Range(0, 4);
+
+            Instantiate(deathSplatters[selectedSplatter], transform.position, Quaternion.Euler(0f, 0f, rotatation * 90f)); ;
         }
 
     }
