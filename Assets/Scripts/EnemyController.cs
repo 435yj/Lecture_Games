@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     public int health = 150;
 
     public GameObject[] deathSplatters;
+    public GameObject hitEffect;
 
     private void Update()
     {
@@ -47,6 +48,8 @@ public class EnemyController : MonoBehaviour
     public void DamageEnemy(int damage)
     {
         health -= damage;
+
+        Instantiate(hitEffect, transform.position, transform.rotation);
 
         if(health <= 0)
         {

@@ -659,6 +659,7 @@ MonoBehaviour:
   - {fileID: 6277291156338391247, guid: 1be425319343df94394fad6ab1d21570, type: 3}
   - {fileID: 8287343526834210397, guid: c51672004b48d7b42bb2f28289e23b32, type: 3}
   - {fileID: 7833114995378909998, guid: 13a156970dee6c3428f9341d9174b5b3, type: 3}
+  hitEffect: {fileID: 7962240450461152997, guid: df265981fd8302949af42834c0c62826, type: 3}
 --- !u!61 &1502482098
 BoxCollider2D:
   m_ObjectHideFlags: 0
