@@ -10,6 +10,8 @@ public class PlayerBullet : MonoBehaviour
 
     public GameObject impactEffect;
 
+    public int damageToGive = 50;
+
 
     private void Update()
     {
@@ -20,6 +22,11 @@ public class PlayerBullet : MonoBehaviour
     {
         Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(gameObject);
+
+        if (other.tag == "Enemy")
+        {
+            other.GetComponent<EnemyController>().DamageEnemy(damageToGive);
+        }
     }
 
     private void OnBecameInvisible()

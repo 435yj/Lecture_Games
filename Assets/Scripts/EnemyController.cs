@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
 
     public Animator anim;
 
-
+    public int health = 150;
 
     private void Update()
     {
@@ -42,7 +42,16 @@ public class EnemyController : MonoBehaviour
     }
 
 
+    public void DamageEnemy(int damage)
+    {
+        health -= damage;
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
 
 }
