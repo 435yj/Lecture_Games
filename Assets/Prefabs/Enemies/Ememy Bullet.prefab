@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5695545348711090366}
   - component: {fileID: 5695545348711090365}
   - component: {fileID: 5695545348711090364}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ememy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
