@@ -17,9 +17,17 @@ public class EnemyController : MonoBehaviour
     public GameObject[] deathSplatters;
     public GameObject hitEffect;
 
+    public bool shouldShoot;
+
+    public GameObject bullet;
+    public Transform firePoint;
+    public float fireRate;
+    private float fireCounter;
+
+
     private void Update()
     {
-        if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
+        if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
         {
             moveDirection = PlayerController.instance.transform.position - transform.position;
         }
@@ -33,7 +41,7 @@ public class EnemyController : MonoBehaviour
         therRB.velocity = moveDirection * moveSpeed;
 
 
-        if(moveDirection != Vector3.zero)
+        if (moveDirection != Vector3.zero)
         {
             anim.SetBool("isMoving", true);
         }
@@ -42,6 +50,16 @@ public class EnemyController : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
+        if (shouldShoot)
+        {
+            fireCounter -= Time.deltaTime;
+
+            if (fireCounter <= 0)
+            {
+                fireCounter = fireRate;
+                Instantiate(bullet, transform.position, transform.rotation);
+            }
+        }
     }
 
 
@@ -51,7 +69,7 @@ public class EnemyController : MonoBehaviour
 
         Instantiate(hitEffect, transform.position, transform.rotation);
 
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
 
