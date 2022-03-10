@@ -86,9 +86,9 @@ MonoBehaviour:
   - {fileID: 7833114995378909998, guid: 13a156970dee6c3428f9341d9174b5b3, type: 3}
   hitEffect: {fileID: 7962240450461152997, guid: df265981fd8302949af42834c0c62826, type: 3}
   shouldShoot: 0
-  bullet: {fileID: 6075646927705691922, guid: bcca6a8db7b11dd48960f638d16b4042, type: 3}
+  bullet: {fileID: 5695545348711090355, guid: 8e3eac6f0acbc2348b0673a05a04be1e, type: 3}
   firePoint: {fileID: 7726077620256494525}
-  fireRate: 0.2
+  fireRate: 1
 --- !u!50 &5032182847717004799
 Rigidbody2D:
   serializedVersion: 4
@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6797397449239499133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5032182847717004796}
