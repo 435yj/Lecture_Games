@@ -24,21 +24,41 @@ public class EnemyController : MonoBehaviour
     public float fireRate;
     private float fireCounter;
 
+    public float shootRange;
+
+    public SpriteRenderer theBody;
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
+
+        if (theBody.isVisible)
         {
-            moveDirection = PlayerController.instance.transform.position - transform.position;
-        }
-        else
-        {
-            moveDirection = Vector3.zero;
+
+            if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < rangeToChasePlayer)
+            {
+                moveDirection = PlayerController.instance.transform.position - transform.position;
+            }
+            else
+            {
+                moveDirection = Vector3.zero;
+            }
+
+            moveDirection.Normalize();
+
+            therRB.velocity = moveDirection * moveSpeed;
+
+            if (shouldShoot && Vector3.Distance(transform.position, PlayerController.instance.transform.position)< shootRange)
+            {
+                fireCounter -= Time.deltaTime;
+
+                if (fireCounter <= 0)
+                {
+                    fireCounter = fireRate;
+                    Instantiate(bullet, firePoint.position, firePoint.rotation);
+                }
+            }
         }
 
-        moveDirection.Normalize();
-
-        therRB.velocity = moveDirection * moveSpeed;
 
 
         if (moveDirection != Vector3.zero)
@@ -50,16 +70,6 @@ public class EnemyController : MonoBehaviour
             anim.SetBool("isMoving", false);
         }
 
-        if (shouldShoot)
-        {
-            fireCounter -= Time.deltaTime;
-
-            if (fireCounter <= 0)
-            {
-                fireCounter = fireRate;
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
-            }
-        }
     }
 
 
