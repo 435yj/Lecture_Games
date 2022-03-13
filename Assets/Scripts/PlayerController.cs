@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer bodySR;
 
     private float activeMoveSpeed;
-    public float dashSpeed = 8f, dashLength = .5f, dashCooldown = 1f, dashInvinvibility = .5f;
+    public float dashSpeed = 8f, dashLength = .5f, dashCooldown = 1f, dashInvincibility = .5f;
     private float dashCounter, dashCoolCounter;
 
     private void Awake()
@@ -103,6 +103,8 @@ public class PlayerController : MonoBehaviour
                 dashCounter = dashLength;
 
                 anim.SetTrigger("dash");
+
+                PlayerHealthController.instance.MakeInvincible(dashInvincibility);
             }
         }
 
