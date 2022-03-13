@@ -1195,6 +1195,7 @@ MonoBehaviour:
   bulletToFire: {fileID: 6075646927705691922, guid: bcca6a8db7b11dd48960f638d16b4042, type: 3}
   firePoint: {fileID: 74983318}
   timeBetweenShots: 0.2
+  bodySR: {fileID: 952564218}
 --- !u!58 &1364816388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1282,6 +1283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 5
+  damageInvincLength: 1
 --- !u!4 &1399188032
 Transform:
   m_ObjectHideFlags: 0
