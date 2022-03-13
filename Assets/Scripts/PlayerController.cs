@@ -101,6 +101,8 @@ public class PlayerController : MonoBehaviour
             {
                 activeMoveSpeed = dashSpeed;
                 dashCounter = dashLength;
+
+                anim.SetTrigger("dash");
             }
         }
 
