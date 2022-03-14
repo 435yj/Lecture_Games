@@ -12,9 +12,4 @@ public class SpriteSortOrder : MonoBehaviour
 
         theSR.sortingOrder = Mathf.RoundToInt(transform.position.y * -10f);
     }
-
-    void Update()
-    {
-        
-    }
 }
