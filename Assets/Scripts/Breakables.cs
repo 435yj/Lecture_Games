@@ -11,6 +11,8 @@ public class Breakables : MonoBehaviour
     public GameObject[] itemsToDrop;
     public float itemDropPercent;
 
+    public int breakSound;
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,6 +21,8 @@ public class Breakables : MonoBehaviour
             if (PlayerController.instance.dashCounter > 0)
             {
                 Destroy(gameObject);
+
+                AudioManager.instance.PlaySFX(0);
 
                 int piecesToDrop = Random.Range(1, maxPieces);
 
