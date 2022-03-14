@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
             therRB.velocity = moveDirection * moveSpeed;
 
-            if (shouldShoot && Vector3.Distance(transform.position, PlayerController.instance.transform.position)< shootRange)
+            if (shouldShoot && Vector3.Distance(transform.position, PlayerController.instance.transform.position) < shootRange)
             {
                 fireCounter -= Time.deltaTime;
 
@@ -55,6 +55,7 @@ public class EnemyController : MonoBehaviour
                 {
                     fireCounter = fireRate;
                     Instantiate(bullet, firePoint.position, firePoint.rotation);
+                    AudioManager.instance.PlaySFX(13);
                 }
             }
         }
@@ -81,6 +82,8 @@ public class EnemyController : MonoBehaviour
     {
         health -= damage;
 
+        AudioManager.instance.PlaySFX(2);
+
         Instantiate(hitEffect, transform.position, transform.rotation);
 
         if (health <= 0)
@@ -88,6 +91,8 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
             int selectedSplatter = Random.Range(0, deathSplatters.Length);
+
+            AudioManager.instance.PlaySFX(1);
 
             int rotatation = Random.Range(0, 4);
 

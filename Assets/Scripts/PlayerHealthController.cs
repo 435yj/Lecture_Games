@@ -45,6 +45,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         if (invincCount <= 0)
         {
+            AudioManager.instance.PlaySFX(11);
 
             currentHealth--;
 
@@ -59,6 +60,7 @@ public class PlayerHealthController : MonoBehaviour
                 UIController.instance.deathScreen.SetActive(true);
 
                 AudioManager.instance.PlayGameOver();
+                AudioManager.instance.PlaySFX(8);
             }
 
             UIController.instance.healthSlider.value = currentHealth;
