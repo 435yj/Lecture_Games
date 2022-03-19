@@ -3328,6 +3328,7 @@ MonoBehaviour:
   dashCooldown: 1
   dashInvincibility: 0.5
   dashCounter: 0
+  canMove: 1
 --- !u!58 &1364816388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5493,6 +5494,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5171602382794569902, guid: 5f067fcb11cb05640a705d19f4f439b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5171602382794569903, guid: 5f067fcb11cb05640a705d19f4f439b5, type: 3}
+      propertyPath: closeWhenEntered
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
